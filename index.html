@@ -10,12 +10,12 @@
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css"/>
   <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
-  <script src="https://joe123890508.github.io/720DregreeMap.github.io/libs/modernizr-2.7.1-csstransforms3d-canvas-touch.js"></script>
-  <script src="https://joe123890508.github.io/720DregreeMap.github.io/libs/megapix-image.js"></script>
-  <script src="https://joe123890508.github.io/720DregreeMap.github.io/libs/three.min.js"></script>
-  <script src="https://joe123890508.github.io/720DregreeMap.github.io/libs/Detector.js"></script>
-  <script src="https://joe123890508.github.io/720DregreeMap.github.io/libs/CSS3DRenderer.js"></script>
-  <script src="https://joe123890508.github.io/720DregreeMap.github.io/libs/theta-viewer.min.js"></script>
+  <script src="https://joe123890508.github.io/720DregreeMap/libs/modernizr-2.7.1-csstransforms3d-canvas-touch.js"></script>
+  <script src="https://joe123890508.github.io/720DregreeMap/libs/megapix-image.js"></script>
+  <script src="https://joe123890508.github.io/720DregreeMap/libs/three.min.js"></script>
+  <script src="https://joe123890508.github.io/720DregreeMap/libs/Detector.js"></script>
+  <script src="https://joe123890508.github.io/720DregreeMap/libs/CSS3DRenderer.js"></script>
+  <script src="https://joe123890508.github.io/720DregreeMap/libs/theta-viewer.min.js"></script>
   <style>
     body {
       font-family: sans-serif;
@@ -247,14 +247,13 @@
     tileZ: 10
   }));
 
-  google_map_url = 'https://www.google.com/maps/search/?api=1&query='
   async function loadAllData() {
     try {
-      const res1 = await fetch("https://joe123890508.github.io/720DregreeMap.github.io/data/layer.json");
+      const res1 = await fetch("https://joe123890508.github.io/720DregreeMap/data/layer.json");
       global_compared_json = await res1.json();
-      const res2 = await fetch("https://joe123890508.github.io/720DregreeMap.github.io/data/region.geojson");
+      const res2 = await fetch("https://joe123890508.github.io/720DregreeMap/data/region.geojson");
       global_geo_json = await res2.json();
-      const res3 = await fetch("https://joe123890508.github.io/720DregreeMap.github.io/data/color.json");
+      const res3 = await fetch("https://joe123890508.github.io/720DregreeMap/data/color.json");
       global_color_json = await res3.json();
       processGeoJson(global_geo_json, global_compared_json, global_color_json);
     } catch (error) {
