@@ -248,6 +248,7 @@
   }));
 
   async function loadAllData() {
+    const thetaURL = "https://joe123890508.github.io/720DregreeMap/theta.geojson"
     try {
       const res1 = await fetch("https://joe123890508.github.io/720DregreeMap/data/layer.json");
       global_compared_json = await res1.json();
@@ -331,7 +332,6 @@
     fullscreenElement: false
   }).addTo(map);
 
-  const thetaURL = "https://joe123890508.github.io/720DregreeMap.github.io/theta.geojson"
   fetch(thetaURL)
     .then(response => {
       if (!response.ok) throw new Error("無法載入資料");
