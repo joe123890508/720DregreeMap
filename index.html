@@ -10,12 +10,12 @@
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
   <link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css"/>
   <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
-  <script src="./libs/modernizr-2.7.1-csstransforms3d-canvas-touch.js"></script>
-  <script src="./libs/megapix-image.js"></script>
-  <script src="./libs/three.min.js"></script>
-  <script src="./libs/Detector.js"></script>
-  <script src="./libs/CSS3DRenderer.js"></script>
-  <script src="./libs/theta-viewer.min.js"></script>
+  <script src="https://joe123890508.github.io/720DregreeMap.github.io/libs/modernizr-2.7.1-csstransforms3d-canvas-touch.js"></script>
+  <script src="https://joe123890508.github.io/720DregreeMap.github.io/libs/megapix-image.js"></script>
+  <script src="https://joe123890508.github.io/720DregreeMap.github.io/libs/three.min.js"></script>
+  <script src="https://joe123890508.github.io/720DregreeMap.github.io/libs/Detector.js"></script>
+  <script src="https://joe123890508.github.io/720DregreeMap.github.io/libs/CSS3DRenderer.js"></script>
+  <script src="https://joe123890508.github.io/720DregreeMap.github.io/libs/theta-viewer.min.js"></script>
   <style>
     body {
       font-family: sans-serif;
@@ -167,22 +167,22 @@
       background-color: #4a90e2;
       border-radius: 3px;
     }
-  .modal-body{
-    display: flex;
-    justify-content: center; /* 水平置中 */
-    align-items: center;     /* 垂直置中 */
-    flex-direction: column;  /* 子元素垂直排列 */
-    text-align: center;      /* 子元素文字置中 */
-  }
-  #theta-viewer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    direction: column;
-    width: 90% !important;
-    max-width: 100%;
-    height: 75vh !important;
-  }
+    .modal-body{
+      display: flex;
+      justify-content: center; /* 水平置中 */
+      align-items: center;     /* 垂直置中 */
+      flex-direction: column;  /* 子元素垂直排列 */
+      text-align: center;      /* 子元素文字置中 */
+    }
+    #theta-viewer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      direction: column;
+      width: 90% !important;
+      max-width: 100%;
+      height: 75vh !important;
+    }
   </style>
 </head>
 
@@ -250,11 +250,11 @@
   google_map_url = 'https://www.google.com/maps/search/?api=1&query='
   async function loadAllData() {
     try {
-      const res1 = await fetch("https://joe123890508.github.io/wrasb_land.github.io/test.json");
+      const res1 = await fetch("https://joe123890508.github.io/720DregreeMap.github.io/data/layer.json");
       global_compared_json = await res1.json();
-      const res2 = await fetch("https://joe123890508.github.io/wrasb_land.github.io/test.geojson");
+      const res2 = await fetch("https://joe123890508.github.io/720DregreeMap.github.io/data/region.geojson");
       global_geo_json = await res2.json();
-      const res3 = await fetch("https://joe123890508.github.io/wrasb_land.github.io/color_test.json");
+      const res3 = await fetch("https://joe123890508.github.io/720DregreeMap.github.io/data/color.json");
       global_color_json = await res3.json();
       processGeoJson(global_geo_json, global_compared_json, global_color_json);
     } catch (error) {
@@ -332,50 +332,44 @@
     fullscreenElement: false
   }).addTo(map);
 
-  const thetaURL = "https://joe123890508.github.io/wrasb_land.github.io/test2.geojson"
+  const thetaURL = "https://joe123890508.github.io/720DregreeMap.github.io/theta.geojson"
   fetch(thetaURL)
     .then(response => {
       if (!response.ok) throw new Error("無法載入資料");
       return response.json();
     })
-
-.then(data => {
-  L.geoJSON(data, {
-    onEachFeature: function (feature, layer) {
-      layer.on("click", () => {
-        document.getElementById("feature-title2").innerHTML = feature.properties.Name
-        const featureModal = new bootstrap.Modal(document.getElementById('720Modal'));
-        featureModal.show();
-        function sleep(ms) {
-          return new Promise(resolve => setTimeout(resolve, ms));
-        }
-        async function createThetaViewer() {
-          await sleep(500);  // 等待3秒
-          if (feature.properties && feature.properties.URL) {
-            $("#theta-viewer").createThetaViewer(feature.properties.URL);
+  .then(data => {
+    L.geoJSON(data, {
+      onEachFeature: function (feature, layer) {
+        layer.on("click", () => {
+          document.getElementById("feature-title2").innerHTML = feature.properties.Name
+          const featureModal = new bootstrap.Modal(document.getElementById('720Modal'));
+          featureModal.show();
+          function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
           }
-        }
-        createThetaViewer();
+          async function createThetaViewer() {
+            await sleep(500);  // 等待3秒
+            if (feature.properties && feature.properties.URL) {
+              $("#theta-viewer").createThetaViewer(feature.properties.URL);
+            }
+          }
+          createThetaViewer();
+        })
       }
-      )
-    }
-  }).addTo(map);
-})
-  
-
-const modal720El = document.getElementById('720Modal');
-const modal720 = new bootstrap.Modal(modal720El);
-modal720El.addEventListener('show.bs.modal', () => {
-  map.dragging.disable();
-});
-modal720El.addEventListener('hidden.bs.modal', () => {
-  map.dragging.enable();
-});
-
-$('#720Modal').on('hidden.bs.modal', function () {
-  $('#theta-viewer').empty();
-});
-
+    }).addTo(map);
+  })
+  const modal720El = document.getElementById('720Modal');
+  const modal720 = new bootstrap.Modal(modal720El);
+  modal720El.addEventListener('show.bs.modal', () => {
+    map.dragging.disable();
+  });
+  modal720El.addEventListener('hidden.bs.modal', () => {
+    map.dragging.enable();
+  });
+  $('#720Modal').on('hidden.bs.modal', function () {
+    $('#theta-viewer').empty();
+  });
   </script>
 </body>
 </html>
