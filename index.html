@@ -297,10 +297,6 @@
               const center = layer.getBounds().getCenter()
               const lat = center.lat
               const lng = center.lng
-              url = google_map_url + lat + ',' +lng
-              $('#google_map').off().on('click', function () {
-                window.open(url);
-              });
             });
           }
         });
