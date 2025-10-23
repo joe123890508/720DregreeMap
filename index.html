@@ -187,10 +187,9 @@
 </head>
 
 <body>
-<div class="container">
   <h1 class="text-center my-3">TEST</h1>
-    <div id="container" class="mt-3">
-      <div id="map"></div>
+  <div id="container" class="mt-3">
+    <div id="map">
       <div class="modal fade" id="featureModal" tabindex="-1" role="dialog">
         <div class="modal-dialog">
           <div class="modal-content">
@@ -217,10 +216,11 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
     </div>
   </div>
-</div>
 
 <script>
   var map = L.map('map', {center: [22.689,120.436], zoom: 15, zoomControl: true, renderer: L.canvas()});
@@ -340,14 +340,14 @@
     L.geoJSON(data, {
       onEachFeature: function (feature, layer) {
         layer.on("click", () => {
-          document.getElementById("feature-title2").innerHTML = feature.properties.Name
-          const featureModal = new bootstrap.Modal(document.getElementById('720Modal'));
-          featureModal.show();
-          function sleep(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-          }
           async function createThetaViewer() {
-            await sleep(500);  // 等待3秒
+            document.getElementById("feature-title2").innerHTML = feature.properties.Name
+            const featureModal = new bootstrap.Modal(document.getElementById('720Modal'));
+            featureModal.show();
+            function sleep(ms) {
+              return new Promise(resolve => setTimeout(resolve, ms));
+            }
+             await sleep(500);
             if (feature.properties && feature.properties.URL) {
               $("#theta-viewer").createThetaViewer(feature.properties.URL);
             }
