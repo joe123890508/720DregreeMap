@@ -357,9 +357,11 @@
   const modal720 = new bootstrap.Modal(modal720El);
   modal720El.addEventListener('show.bs.modal', () => {
     map.dragging.disable();
+    map.scrollWheelZoom.disable();
   });
   modal720El.addEventListener('hidden.bs.modal', () => {
     map.dragging.enable();
+    map.scrollWheelZoom.enable();
   });
   $('#720Modal').on('hidden.bs.modal', function () {
     $('#theta-viewer').empty();
